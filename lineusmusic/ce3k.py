@@ -9,26 +9,26 @@ class Keyboard:
     __default_keyboard = 'VolcaFM'
     __keyboard = __default_keyboard
     __keyboard_params_list = {
-        'VolcaFM': {
-            'major_x': 0,
-            'minor_x': 100,
-            'high_key_note': 'g-',
-            'high_key_y': 1600,
-            'low_key_note': 'f+',
-            'low_key_y': -1500,
-            'natural_x': 1000,
-            'sharp_x': 1300,
-        },
         # 'VolcaFM': {
         #     'major_x': 0,
         #     'minor_x': 100,
-        #     'high_key_note': 'f-',
+        #     'high_key_note': 'g-',
         #     'high_key_y': 1600,
-        #     'low_key_note': 'e+',
+        #     'low_key_note': 'f+',
         #     'low_key_y': -1500,
         #     'natural_x': 1000,
         #     'sharp_x': 1300,
         # },
+        'VolcaFM': {
+            'major_x': 0,
+            'minor_x': 100,
+            'high_key_note': 'f-',
+            'high_key_y': 1600,
+            'low_key_note': 'e+',
+            'low_key_y': -1500,
+            'natural_x': 1000,
+            'sharp_x': 1300,
+        },
         'Stylophone': {
             'major_x': 0,
             'minor_x': 100,
@@ -150,10 +150,11 @@ if __name__ == '__main__':
     areFriendsElectric = ('c', 'c', 'g', 'r', 'A-', 'A-', 'f', 'r', 'c', 'c', 'g', 'r', 'A-', 'A-', 'A')
     closeEncounters = ('g', 'a', 'f', 'f-', 'c')
 
-    song = closeEncounters
+    song = areFriendsElectric
 
     lineus = LineUs()
     lineus.connect()
+    time.sleep(1)
     k = Keyboard()
     x, y = (k.note_to_coords(k.decode_note('c')))
     lineus.g01(x, y, 1000)
@@ -165,12 +166,12 @@ if __name__ == '__main__':
             lineus.g01(x, y, 1000)
             lineus.g01(x, y, 0)
         time.sleep(0.3)
-    for note in ('e', ):
-        if note != 'r':
-            x, y = k.note_to_coords(k.decode_note(note))
-            lineus.g01(x, y, 1000)
-            lineus.g01(x, y, 0)
-        time.sleep(0.15)
+    # for note in ('e', ):
+    #     if note != 'r':
+    #         x, y = k.note_to_coords(k.decode_note(note))
+    #         lineus.g01(x, y, 1000)
+    #         lineus.g01(x, y, 0)
+    #     time.sleep(0.15)
     lineus.g01(x, y, 1000)
     time.sleep(1)
     lineus.send_gcode('G28')
