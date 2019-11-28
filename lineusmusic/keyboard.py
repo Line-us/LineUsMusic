@@ -3,6 +3,9 @@ import re
 import time
 
 
+# python setup.py sdist
+# twine upload dist/lineusmusic-0.1.0.tar.gz
+
 class Keyboard:
     """A class to control a small keyboard like a Stylophone using a Line-us"""
 
@@ -29,12 +32,12 @@ class Keyboard:
             'sharp_x': 1300,
         },
         'Stylophone': {
-            'high_key_note': 'b-',
+            'high_key_note': 'a-',
             'high_key_y': 1000,
-            'low_key_note': 'c+',
-            'low_key_y': -1000,
+            'low_key_note': 'e+',
+            'low_key_y': -1200,
             'natural_x': 1000,
-            'sharp_x': 1400,
+            'sharp_x': 1200,
         },
     }
     _keyboard_params = None
@@ -48,6 +51,7 @@ class Keyboard:
 
     def __init__(self, line_us, keyboard=None):
         self._line_us = line_us
+        # Set up Line-us, fast pen up moves and disable gestures
         self._line_us.send_gcode('G94', 'P50')
         if keyboard is not None:
             self._keyboard = keyboard
@@ -112,7 +116,7 @@ class Keyboard:
         if len(raw_note) == 0:
             return decoded_note
 
-        # portamento
+        # portamento not currently implemented
         if raw_note[0] == '/':
             raw_note = raw_note[1:]
             portamento = self.decode_note(raw_note)
@@ -145,21 +149,16 @@ class Keyboard:
         return x_coord, y_coord
 
     def play_note(self, note, only_move=False):
-        start_time = time.time()
         decoded_note = self.decode_note(note)
         if decoded_note.get('type') == 'rest':
             time.sleep(self._note_time_ms * decoded_note.get('length', 1) / 1000)
         else:
             x, y = self.note_to_coords(decoded_note)
-            print(f'{decoded_note["raw_note"]}:{x}:{y}')
+            # print(f'{decoded_note["raw_note"]}:{x}:{y}')
             self._line_us.g01(x, y, 1000)
             if not only_move:
-                note_time_adjustment = time.time() - start_time
-                # print(note_time_adjustment)
                 self._line_us.g01(x, y, 0)
-                # print(f'c:{self._note_time_ms * decoded_note.get("length", 1)} ADJ:{int(note_time_adjustment * 1000)}')
                 time.sleep(self._note_time_ms * decoded_note.get('length', 1) / 1000)
-                # time.sleep((self._note_time_ms * decoded_note.get('length', 1) - note_time_adjustment) / 1000)
                 self._line_us.g01(x, y, 1000)
 
 
@@ -167,14 +166,16 @@ if __name__ == '__main__':
 
     areFriendsElectric = ('c', 'c', 'g', 'r', 'A-', 'A-', 'f', 'r', 'c', 'c', 'g', 'r', 'A-', 'A-', 'A', 'e')
     closeEncounters = ('g', 'a', 'f', 'f-', 'c')
-    low_scale = ('f-', 'g-', 'a-', 'b-', 'c', 'd', 'e', 'f', 'g', 'a', 'b', 'c+', 'd+', 'e+')
+    low_volca_scale = ('f-', 'g-', 'a-', 'b-', 'c', 'd', 'e', 'f', 'g', 'a', 'b', 'c+', 'd+', 'e+')
+    volca_scale = ('g-', 'a-', 'b-', 'c', 'd', 'e', 'f', 'g', 'a', 'b', 'c+', 'd+', 'e+', 'f+')
+    stylophone_scale = ('a-', 'A-', 'b-', 'c', 'd', 'e', 'f', 'g', 'a', 'b', 'c+', 'd+', 'e+')
 
-    song = closeEncounters
+    song = areFriendsElectric
 
     my_lineus = LineUs()
     my_lineus.connect('line-us.local')
-    k = Keyboard(my_lineus, keyboard='VolcaFMLow')
-    k.set_bpm(120)
+    k = Keyboard(my_lineus, keyboard='Stylophone')
+    k.set_bpm(100)
 
     input('Set Line-us to \'c\':')
 
