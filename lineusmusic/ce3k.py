@@ -150,7 +150,7 @@ if __name__ == '__main__':
     areFriendsElectric = ('c', 'c', 'g', 'r', 'A-', 'A-', 'f', 'r', 'c', 'c', 'g', 'r', 'A-', 'A-', 'A')
     closeEncounters = ('g', 'a', 'f', 'f-', 'c')
 
-    song = areFriendsElectric
+    song = closeEncounters
 
     lineus = LineUs()
     lineus.connect()

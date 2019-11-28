@@ -24,10 +24,10 @@
         },
         "ipaddress": {
             "hashes": [
-                "sha256:64b28eec5e78e7510698f6d4da08800a5c575caa4a286c93d651c5d3ff7b6794",
-                "sha256:b146c751ea45cad6188dd6cf2d9b757f6f4f8d6ffb96a023e6f2e26eea02a72c"
+                "sha256:6e0f4a39e66cb5bb9a137b00276a2eff74f93b71dcbdad6f10ff7df9d3557fcc",
+                "sha256:b7f8e0369580bb4a24d5ba1d7cc29660a4a6987763faf1d8a8046830e020e7e2"
             ],
-            "version": "==1.0.22"
+            "version": "==1.0.23"
         },
         "lineus": {
             "hashes": [
@@ -65,10 +65,10 @@
         },
         "zeroconf": {
             "hashes": [
-                "sha256:21d02538ff52fc572e1d785c692b97b8d4374623cb95d593cc06ab92bd5aaf61",
-                "sha256:e0c333b967c48f8b2e5cc94a1d4d28893023fb06dfd797ee384a94cdd1d0eef5"
+                "sha256:50689ce94a031378bcdb47586f539396511cf6971826cd96a845261973ee100a",
+                "sha256:b5542321c8f5344a806593e47a11b04d6c9d240cfc10492b6287ae9a0b1d1f3e"
             ],
-            "version": "==0.23.0"
+            "version": "==0.24.0"
         }
     },
     "develop": {}
