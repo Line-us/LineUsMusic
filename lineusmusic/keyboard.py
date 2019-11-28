@@ -3,9 +3,6 @@ import re
 import time
 
 
-# python setup.py sdist
-# twine upload dist/lineusmusic-0.1.0.tar.gz
-
 class Keyboard:
     """A class to control a small keyboard like a Stylophone using a Line-us"""
 
